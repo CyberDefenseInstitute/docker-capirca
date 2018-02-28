@@ -1,0 +1,35 @@
+! $Id:$
+! $Date:$
+! $Revision:$
+no ip access-list extended server
+ip access-list extended server
+ remark $Id:$
+ remark 'Firewall ACL for intra server segment ACL'
+
+
+ remark accept-same-segment
+ remark 'Allow tcp/udp from INTRA_SERVER'
+ permit ip 10.0.0.0 0.0.0.255 10.0.0.0 0.0.0.255
+
+
+ remark accept-ssh-replies
+ remark 'Allow ssh tcp replies to NOC_SEGMENT.'
+ permit tcp 10.0.0.0 0.0.0.255 eq 22 192.168.254.0 0.0.0.255 established
+
+
+ remark deny-ssh-request
+ remark 'Deny ssh tcp replies to INTRA_OFFICE.'
+ deny tcp any eq 22 192.168.1.0 0.0.0.255
+
+
+ remark accept-tcp-replies
+ remark 'Allow tcp replies to INTRA_OFFICE.'
+ permit tcp 10.0.0.0 0.0.0.255 eq 443 192.168.1.0 0.0.0.255 established
+
+
+ remark discard-spoofs
+ deny ip any 10.0.0.0 0.255.255.255 log
+ deny ip any 172.16.0.0 0.15.255.255 log
+ deny ip any 192.168.0.0 0.0.255.255 log
+
+exit

@@ -1,0 +1,12 @@
+## Server
+INTRA_SERVER = 10.0.0.0/24
+
+## Operation
+NOC_SEGMENT = 192.168.254.0/24
+
+## Office Segment
+INTRA_OFFICE = 192.168.1.0/24
+
+INTRA = INTRA_SERVER
+        NOC_SEGMENT
+        INTRA_OFFICE
